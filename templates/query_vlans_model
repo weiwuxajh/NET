@@ -1,0 +1,8 @@
+Value vlanN (\d+)
+Value vlanName (\S+)
+Value port (.+)
+
+Start
+  ^${vlanN}\s+${vlanName}\s+\w+\s+${port} -> Record
+
+EOF

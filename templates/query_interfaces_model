@@ -1,0 +1,8 @@
+Value inter (\S+)
+Value ip (\S+)
+Value status ((\S+ \S+)|\S+)
+
+Start
+  ^${inter}\s+${ip}\s+\w+\s+\w+\s+${status} -> Record
+
+EOF
