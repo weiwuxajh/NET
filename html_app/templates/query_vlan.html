@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取vlan信息</title>
+    {% load staticfiles %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_messages %}
+</head>
+<body>
+{% csrf_token %}
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $(document).ready(
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        }),
+        $.ajax({
+            url: "/html_app/device",
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data);
+                for (i = 0; i < data['device'].length; i++) {
+                    $('#nameList').append("<option value='" + data['device'][i][1] + "'>" + data['device'][i][1] + "</option>")
+                }
+            }
+        }),
+    );
+
+
+    function queryVlan() {
+        var nameSelected = $("#nameList").find("option:selected").val();
+        //console.log(serialSelected);
+        var formData = new FormData();
+        formData.append("name", nameSelected);
+        $("#vlan").empty()
+        $.ajax({
+            url: "/html_app/vlanlist",
+            type: "POST",
+            cache: false,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                //console.log(data);
+                for (i = 0; i < data['vlan'].length; i++) {
+
+                    $('#vlan').append("<tr><td>" + data['vlan'][i][1] + "</td><td>" + data['vlan'][i][2] + "</td><td>" + data['vlan'][i][3] + "</td><td>" + data['vlan'][i][4] + "</td><tr>");
+
+                }
+            }
+        })
+    }
+
+   $("#panelT1").click(function () {
+        $("#panelB1").slideToggle("slow");
+    });
+    $("#panelT2").click(function () {
+        $("#panelB2").slideToggle("slow");
+    });
+    $("#panelT3").click(function () {
+        $("#panelB3").slideToggle("slow");
+    });
+    $("#panelT4").click(function () {
+        $("#panelB4").slideToggle("slow");
+    });
+</script>
+<form role="form">
+    <div>
+        <div class="form-group">
+            <select class="form-control" id="nameList"
+                    style="width: 30%;display: inline;float:left;margin-left: 20px;">
+                <option value="" disabled selected>设备选择</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-white" style="display: inline;float: left;margin-left: 20px;"
+                onclick="queryVlan()">查询
+        </button>
+    </div>
+</form>
+
+<br><br><br>
+<div class="accordion" id="accordionExample">
+    <div class="card bg-secondary text-white">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="false" aria-controls="collapseOne">
+                    vlan infomation
+                </button>
+            </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <table class="table table-dark table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">hostname</th>
+                            <th scope="col">vlanNum</th>
+                            <th scope="col">vlanName</th>
+                            <th scope="col">vlanInt</th>
+                        </tr>
+                        </thead>
+                        <tbody id="vlan">
+
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

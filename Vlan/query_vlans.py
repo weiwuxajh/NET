@@ -7,6 +7,9 @@ import textfsm
 
 
 class query_vlans():
+    def __init__(self, hostname='SW1'):
+        self.hostname = hostname
+
     def query_vlan(self):
         list = devicelist.objects.all()
         fsm_results = []
@@ -25,5 +28,5 @@ class query_vlans():
         return fsm_results
 
     def query_db_vlan(self):
-        vlan_list = vlans.objects.values_list()
+        vlan_list = vlans.objects.values_list().filter(name = self.hostname)
         return vlan_list

@@ -7,6 +7,9 @@ import textfsm
 
 
 class query_interfaces():
+    def __init__(self,hostname='SW1'):
+        self.hostname = hostname
+
     def query_int(self):
         # cisco = {
         #     'device_type':'cisco_ios',
@@ -34,7 +37,7 @@ class query_interfaces():
         return fsm_results
 
     def query_db_int(self):
-        int_list = interfaces.objects.values_list()
+        int_list = interfaces.objects.values_list().filter(name = self.hostname)
         return int_list
 
 

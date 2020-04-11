@@ -75,10 +75,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Interface',
+    'bootstrap4',
     'django_celery_results',
     'django_celery_beat',
     'Vlan',
-    'Route'
+    'Route',
+    'html_app'
 ]
 
 MIDDLEWARE = [

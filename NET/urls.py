@@ -18,7 +18,7 @@ from django.urls import path
 from . import testdb
 from Interface.config_interfaces import config_interfaces
 from Interface import views
-
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,8 +28,5 @@ urlpatterns = [
     path('configint',views.int.as_view()),
     path('configvlan', views.vlan.as_view()),
     path('configroute', views.route.as_view()),
-    path('device', views.device.as_view()),
-    path('intlist',views.query_int_list.as_view()),
-    path('routelist', views.query_route_list.as_view()),
-    path('vlanlist', views.query_vlan_list.as_view())
+    path('html_app/', include('html_app.urls'))
 ]

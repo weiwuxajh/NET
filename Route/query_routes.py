@@ -7,6 +7,9 @@ import textfsm
 
 
 class query_routes():
+    def __init__(self,hostname='SW1'):
+        self.hostname = hostname
+
     def query_route(self):
         list = devicelist.objects.all()
         fsm_results = []
@@ -25,5 +28,5 @@ class query_routes():
         return fsm_results
 
     def query_db_route(self):
-        route_list = routes.objects.values_list()
+        route_list = routes.objects.values_list().filter(name = self.hostname)
         return route_list
