@@ -5,6 +5,7 @@ from Interface.query_devices import query_devices
 from Interface.query_interfaces import query_interfaces
 from Vlan.query_vlans import query_vlans
 from Route.query_routes import query_routes
+from Interface.config_interfaces import config_interfaces
 import json
 
 # Create your views here.
@@ -24,6 +25,20 @@ class html_route(View):
     def get(self, request):
         return render(request, "query_route.html", {"test": "test"})
 
+
+class html_device(View):
+    def get(self, request):
+        return render(request, "query_device.html", {"test": "test"})
+
+
+class config_int(View):
+    def get(self, request):
+        return render(request, "config_interface.html", {"test": "test"})
+
+
+class home(View):
+    def get(self, request):
+        return render(request, "home.html", {"test": "test"})
 
 
 class device(View):
@@ -72,4 +87,18 @@ class query_route_list(View):
         data = {}
         data['route'] = list(y)
         return JsonResponse(data)
+
+
+class int(View):
+    def post(self,request):
+        name = request.POST['name']
+        port = request.POST['port']
+        ip = request.POST['ip']
+        x = config_interfaces(hostname=name,port=port,ip=ip)
+        y = x.config_intip()
+        # xx = json.dumps(y)
+        # return JsonResponse(xx, safe=False)
+        yy = {"bool":True}
+        yyy = json.dumps(yy)
+        return JsonResponse(yyy,safe=False)
 

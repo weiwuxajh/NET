@@ -25,7 +25,6 @@ urlpatterns = [
     path('testdb',testdb.testdb),
     path('testvlan',testdb.testvlan),
     path('testroute',testdb.testroute),
-    path('configint',views.int.as_view()),
     path('configvlan', views.vlan.as_view()),
     path('configroute', views.route.as_view()),
     path('html_app/', include('html_app.urls'))

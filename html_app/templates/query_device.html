@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>device information</title>
+    {% load staticfiles %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_messages %}
+</head>
+<body>
+{% csrf_token %}
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $(document).ready(
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        }),
+        $.ajax({
+            url: "/html_app/device",
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log("123");
+                for (i = 0; i < data['device'].length; i++) {
+                    $('#device').append("<tr><td>" + data['device'][i][1] + "</td><td>" + data['device'][i][2] + "</td><td>" + data['device'][i][3] + "</td><td>" + data['device'][i][4] + "</td><td>"+ data['device'][i][5] +"</td><td>"+data['device'][i][6]+"</td><tr>");
+                }
+            }
+        }),
+    );
+
+
+
+   $("#panelT1").click(function () {
+        $("#panelB1").slideToggle("slow");
+    });
+    $("#panelT2").click(function () {
+        $("#panelB2").slideToggle("slow");
+    });
+    $("#panelT3").click(function () {
+        $("#panelB3").slideToggle("slow");
+    });
+    $("#panelT4").click(function () {
+        $("#panelB4").slideToggle("slow");
+    });
+</script>
+
+
+<br><br><br>
+<div class="accordion" id="accordionExample">
+    <div class="card bg-secondary text-white">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="false" aria-controls="collapseOne">
+                    device infomation
+                </button>
+            </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <table class="table table-dark table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">hostname</th>
+                            <th scope="col">devicetype</th>
+                            <th scope="col">host</th>
+                            <th scope="col">username</th>
+                            <th scope="col">password</th>
+                            <th scope="col">secret</th>
+                        </tr>
+                        </thead>
+                        <tbody id="device">
+
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

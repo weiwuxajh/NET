@@ -13,13 +13,13 @@ from django.shortcuts import render
 from django.core import serializers
 # Create your views here.
 
-
-class int(View):
-    def get(self,request):
-        x = config_interfaces()
-        y = x.config_intip()
-        xx = json.dumps(y)
-        return JsonResponse(xx, safe=False)#config
+#
+# class int(View):
+#     def get(self,request):
+#         x = config_interfaces()
+#         y = x.config_intip()
+#         xx = json.dumps(y)
+#         return JsonResponse(xx, safe=False)#config
 
 
 class vlan(View):

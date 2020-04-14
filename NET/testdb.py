@@ -10,6 +10,8 @@ from Route.models import routes
 from Route.query_routes import query_routes
 from Interface.models import devicelist
 # 数据库操作
+
+
 def testdb(request):
     x = query_interfaces()
     y = x.query_int()
