@@ -22,12 +22,12 @@ from django.core import serializers
 #         return JsonResponse(xx, safe=False)#config
 
 
-class vlan(View):
-    def get(self,request):
-        x = config_vlans()
-        y = x.delete_vlan()
-        xx = json.dumps(y)
-        return JsonResponse(xx, safe=False)
+# class vlan(View):
+#     def get(self,request):
+#         x = config_vlans()
+#         y = x.delete_vlan()
+#         xx = json.dumps(y)
+#         return JsonResponse(xx, safe=False)
 
 
 class route(View):

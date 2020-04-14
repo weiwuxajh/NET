@@ -15,6 +15,7 @@ class config_vlans():
 
     def creat_vlan(self):
         list = devicelist.objects.all()
+        vlanlist = vlans.objects.all()
         net_connect = ConnectHandler(device_type=list.get(name=self.hostname).devicetype,
                                      host=list.get(name=self.hostname).host,
                                      username=list.get(name=self.hostname).username,
@@ -25,12 +26,17 @@ class config_vlans():
         net_connect.send_config_set(config_commands)
         output = net_connect.send_command('show vlan b')
         net_connect.disconnect()
-        i = vlans(name = self.hostname,vlanNum=self.vlanNum,vlanName=self.vlanName,vlanInt='')
-        i.save()
+        # i = vlans(name = self.hostname,vlanNum=self.vlanNum,vlanName=self.vlanName,vlanInt='')
+        # i.save()
+        vlanlist.filter(name=self.hostname).delete()
         TEMP_FILE = "templates/query_vlans_model"
         fsm = textfsm.TextFSM(open(TEMP_FILE))
         input_txt = output
         fsm_results = fsm.ParseText(input_txt)
+        for index in range(len(fsm_results)):
+            i = vlans(name=self.hostname, vlanNum=fsm_results[index][0], vlanName=fsm_results[index][1],
+                      vlanInt=fsm_results[index][2])
+            i.save()
         return fsm_results
 
     def delete_vlan(self):
@@ -66,9 +72,14 @@ class config_vlans():
         net_connect.send_config_set(config_commands)
         output = net_connect.send_command('show vlan b')
         net_connect.disconnect()
+        vlanlist.filter(name=self.hostname).delete()
         # vlanlist.filter(name=self.hostname,vlanNum=self.vlanNum).
         TEMP_FILE = "templates/query_vlans_model"
         fsm = textfsm.TextFSM(open(TEMP_FILE))
         input_txt = output
         fsm_results = fsm.ParseText(input_txt)
+        for index in range(len(fsm_results)):
+            i = vlans(name=self.hostname, vlanNum=fsm_results[index][0], vlanName=fsm_results[index][1],
+                      vlanInt=fsm_results[index][2])
+            i.save()
         return fsm_results

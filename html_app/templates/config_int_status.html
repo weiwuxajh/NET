@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interface status 配置</title>
+    {% load staticfiles %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_messages %}
+    <script src="{% static 'js/sonic.js' %}"></script>
+</head>
+
+{% csrf_token %}
+<script>
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $(document).ready(
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        }),
+        $.ajax({
+            url: "/html_app/device",
+            type: "POST",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data);
+                for (i = 0; i < data['device'].length; i++) {
+                        $('#nameList').append("<option value='" + data['device'][i][1] + "'>" + data['device'][i][1] + "</option>")
+                    }
+            }
+        }),
+    );
+    $(function () {
+        //监听select
+        $('#nameList').bind('input propertychange', function () {
+            $("#portList").empty()
+            {#$('#serialList').html($(this).val().length);#}
+            if ($('#nameList option:selected').val() != '') {
+                var nameSelected = $("#nameList").find("option:selected").val();
+                var circle = new Sonic({
+
+                    width: 50,
+                    height: 50,
+                    padding: 50,
+
+                    strokeColor: '#000',
+                    pointDistance: .01,
+                    stepsPerFrame: 3,
+                    trailLength: .7,
+
+                    step: 'fader',
+
+                    setup: function () {
+                        this._.lineWidth = 5;
+                    },
+
+                    path: [
+                        ['arc', 25, 25, 25, 0, 360]
+                    ]
+
+                });
+
+                circle.play();
+
+                document.body.appendChild(circle.canvas);
+                $('canvas').css("margin-left", "50%");
+
+                var formData = new FormData();
+                formData.append("name", nameSelected);
+                $("#namelList").css("display", "none");
+                $("#portList").css("display", "none");
+                $("#status").css("display", "none");
+                $("#submit").css("display", "none");
+                $.ajax({
+                    url: "/html_app/intlist",
+                    type: "POST",
+                    cache: false,
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        console.log(data);
+                        for (i = 0; i < data['int'].length; i++) {
+                                $('#portList').append("<option  value='" + data['int'][i][2] + "'>" + data['int'][i][2] + "</option>");
+                        }
+                        $("#nameList").css("display", "block");
+                        $("#portList").css("display", "block");
+                        $("#status").css("display", "block");
+                        $("#submit").css("display", "block");
+                        $('canvas').remove();
+
+                    }
+                })
+            }
+        });
+    });
+
+    function confstatus() {
+        var nameSelected = $("#nameList").find("option:selected").val();
+        var port = $("#portList").find("option:selected").val();
+        var status = $("#status").find("option:selected").val();
+        var formData = new FormData();
+        formData.append("name", nameSelected);
+        formData.append("port", port);
+        formData.append("status", status);
+        var circle = new Sonic({
+
+            width: 50,
+            height: 50,
+            padding: 50,
+
+            strokeColor: '#000',
+            pointDistance: .01,
+            stepsPerFrame: 3,
+            trailLength: .7,
+
+            step: 'fader',
+
+            setup: function () {
+                this._.lineWidth = 5;
+            },
+
+            path: [
+                ['arc', 25, 25, 25, 0, 360]
+            ]
+
+        });
+
+        circle.play();
+
+        document.body.appendChild(circle.canvas);
+        $("#nameList").css("display", "none");
+        $("#portList").css("display", "none");
+        $("#status").css("display", "none");
+        $("#submit").css("display", "none");
+        $('canvas').css("margin-left", "50%");
+        console.log(formData.get("status"))
+        $.ajax({
+            url: "/html_app/int_status",
+            type: "POST",
+            cache: false,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#nameList").css("display", "block");
+                $("#portList").css("display", "block");
+                $("#status").css("display", "block");
+                $("#submit").css("display", "block");
+                $('canvas').remove();
+                alert("配置成功")
+            }
+        })
+    }
+</script>
+<body>
+<br>
+<form role="form" onsubmit="return false" style="margin-left: 36%">
+    <div>
+        <div class="form-group">
+            <select class="form-control" id="nameList"
+                    style="width: 30%;display: inline;float:left;margin-left: 20px;">
+                <option value="" disabled selected>设备选择</option>
+            </select>
+            <br><br>
+            <select class="form-control" id="portList"
+                    style="width: 30%;display: inline;float:left;margin-left: 20px;">
+                <option value="" disabled selected>端口选择（请先选择设备）</option>
+            </select>
+            <br><br>
+            <select class="form-control" id="status"
+                    style="width: 30%;display: inline;float:left;margin-left: 20px;">
+                <option value="" disabled selected>（请先选择port）</option>
+                <option value="shutdown">shutdown</option>
+                <option value="no shutdown">no shutdown</option>
+            </select>
+            <br><br>
+            <button type="submit" class="btn btn-secondary"
+                    style="width: 30%;display: inline;float:left;margin-left: 20px;" onclick="confstatus()" id="submit">
+                Submit
+            </button>
+        </div>
+
+    </div>
+</form>
+</body>
+</html>

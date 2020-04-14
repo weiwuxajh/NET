@@ -24,12 +24,15 @@ class config_interfaces():
         net_connect.send_config_set(config_commands)
         output = net_connect.send_command('show ip int b')
         net_connect.disconnect()
-        intlist.filter(name=self.hostname,interface=self.port).update(status=self.status)
-        interfaces.objects.get(name=self.hostname,interface=self.port).save()
+        intlist.filter(name=self.hostname).delete()
         TEMP_FILE = "templates/query_interfaces_model"
         fsm = textfsm.TextFSM(open(TEMP_FILE))
         input_txt = output
         fsm_results = fsm.ParseText(input_txt)
+        for index in range(len(fsm_results)):
+            i = interfaces(name=self.hostname, interface=fsm_results[index][0], ipadd=fsm_results[index][1],
+                           status=fsm_results[index][2])
+            i.save()
         return fsm_results
 
     def config_intip(self):

@@ -25,7 +25,7 @@ class config_routes():
         net_connect.send_config_set(config_commands)
         output = net_connect.send_command('show ip route')
         net_connect.disconnect()
-        i = routes(name = self.hostname,routetag='S',route=self.net,nexthop=self.nexthop)
+        i = routes(name = self.hostname,routetag='S',route=self.net+"/24",nexthop=self.nexthop)
         i.save()
         TEMP_FILE = "templates/query_routes_model"
         fsm = textfsm.TextFSM(open(TEMP_FILE))
@@ -46,7 +46,7 @@ class config_routes():
         net_connect.send_config_set(config_commands)
         output = net_connect.send_command('show ip route')
         net_connect.disconnect()
-        routelist.filter(name=self.hostname, route=self.net).delete()
+        routelist.filter(name=self.hostname, route=self.net+'/24').delete()
         TEMP_FILE = "templates/query_routes_model"
         fsm = textfsm.TextFSM(open(TEMP_FILE))
         input_txt = output
