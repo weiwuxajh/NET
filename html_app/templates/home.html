@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,68 +10,132 @@
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
     {% bootstrap_messages %}
+    <link rel="stylesheet" href="{% static '/dist/css/bootstrap-submenu.css' %}"/>
+    <script src="{% static 'dist/js/bootstrap-submenu.js' %}" defer></script>
+    <script>
+         $(function () {
+        $('[data-submenu]').submenupicker();
+     });
+    </script>
 </head>
 <script>
-    function networkOverview() {
+    function devicelist() {
         $("#item").attr("src", '/html_app/device_list');
+    }
+
+    function ipConfig() {
+        $("#item").attr("src", '/html_app/configip');
+    }
+
+    function statusConfig() {
+        $("#item").attr("src", '/html_app/configstatus');
+    }
+
+    function addroute() {
+        $("#item").attr("src", '/html_app/creatroute');
+    }
+
+    function deleteroute() {
+        $("#item").attr("src", '/html_app/deleteroute');
+    }
+
+    function accessConfig() {
+        $("#item").attr("src", '/html_app/access');
+    }
+
+    function addvlan() {
+        $("#item").attr("src", '/html_app/creatvlan');
+    }
+
+    function deletevlan() {
+        $("#item").attr("src", '/html_app/deletevlan');
+    }
+
+
+    function queryRoute() {
+        $("#item").attr("src", '/html_app/route_list');
+    }
+
+    function queryVlan() {
+        $("#item").attr("src", '/html_app/vlan_list');
     }
 
     function queryInt() {
         $("#item").attr("src", '/html_app/int_list');
     }
-    function queryRoute() {
-        $("#item").attr("src", '/html_app/route_list');
-    }
-    function queryVlan() {
-        $("#item").attr("src", '/html_app/vlan_list');
-    }
-
 </script>
+
 <body>
-
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <!-- Brand -->
-  <a class="navbar-brand" href="#" onclick="Logo()">Logo</a>
+    <!-- Brand -->
+    <a class="navbar-brand" href="#" onclick="Logo()">Logo</a>
 
-  <!-- Links -->
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="#" onclick="networkOverview()">网络概览</a>
-    </li>
+    <!-- Links -->
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="devicelist()">网络概览</a>
+            </li>
 
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="deviceConfig" data-toggle="dropdown">
-       设备配置
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#" onclick="accessConfigView()">Access</a>
-        <a class="dropdown-item" href="#" onclick="confTrunk()">Trunk</a>
-        <a class="dropdown-item" href="#">Spanning-tree</a>
-        <a class="dropdown-item" href="#" onclick="confIP()">IPV4</a>
-        <a class="dropdown-item" href="#">静态路由</a>
-      </div>
-    </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="deviceConfig" tabindex="0" data-toggle="dropdown"
+                   data-submenu>设备配置</a>
+                <div class="dropdown-menu">
+                    <div class="dropdown dropright dropdown-submenu">
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">vlan
+                        </button>
 
-    <!-- Dropdown -->
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        信息查询
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#" onclick="queryRoute()">路由表</a>
-        <a class="dropdown-item" href="#" onclick="queryInt()">接口信息</a>
-        <a class="dropdown-item" href="#" onclick="queryVlan()">VLAN信息</a>
-      </div>
-    </li>
-      <li class="nav-item">
-      <a class="nav-link" href="#">故障告警</a>
-    </li>
-      <li class="nav-item">
-      <a class="nav-link" href="#">关于</a>
-    </li>
-  </ul>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button" onclick="addvlan()">add</button>
+                            <button class="dropdown-item" type="button" onclick="deletevlan()">delete</button>
+                            <button class="dropdown-item" type="button" onclick="accessConfig()">access</button>
+                        </div>
+                    </div>
+                    <div class="dropdown dropright dropdown-submenu">
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">int
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button" onclick="ipConfig()">ip</button>
+                            <button class="dropdown-item" type="button" onclick="statusConfig()">status</button>
+                        </div>
+                    </div>
+                    <div class="dropdown dropright dropdown-submenu">
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">route
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button" onclick="addroute()">add</button>
+                            <button class="dropdown-item" type="button" onclick="deleteroute()">delete</button>
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    信息查询
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" onclick="queryRoute()">路由表</a>
+                    <a class="dropdown-item" href="#" onclick="queryInt()">接口信息</a>
+                    <a class="dropdown-item" href="#" onclick="queryVlan()">VLAN信息</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">故障告警</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">关于</a>
+            </li>
+        </ul>
+    </div>
+
 </nav>
-<iframe id="item" src='/html_app/device_list' style="width: 100%;height: 600px;" frameborder="0"></iframe>
+<iframe id="item" src="/html_app/device_list" style="width: 100%;height: 600px;" frameborder="0"></iframe>
 
 </body>
+
 </html>
