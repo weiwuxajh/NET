@@ -26,8 +26,6 @@ class config_vlans():
         net_connect.send_config_set(config_commands)
         output = net_connect.send_command('show vlan b')
         net_connect.disconnect()
-        # i = vlans(name = self.hostname,vlanNum=self.vlanNum,vlanName=self.vlanName,vlanInt='')
-        # i.save()
         vlanlist.filter(name=self.hostname).delete()
         TEMP_FILE = "templates/query_vlans_model"
         fsm = textfsm.TextFSM(open(TEMP_FILE))
@@ -73,7 +71,6 @@ class config_vlans():
         output = net_connect.send_command('show vlan b')
         net_connect.disconnect()
         vlanlist.filter(name=self.hostname).delete()
-        # vlanlist.filter(name=self.hostname,vlanNum=self.vlanNum).
         TEMP_FILE = "templates/query_vlans_model"
         fsm = textfsm.TextFSM(open(TEMP_FILE))
         input_txt = output

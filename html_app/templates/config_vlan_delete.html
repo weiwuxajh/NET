@@ -46,7 +46,7 @@
             }
         }),
         $.ajax({
-            url: "/html_app/device",
+            url: "/device",
             type: "POST",
             cache: false,
             contentType: false,
@@ -100,7 +100,7 @@
                 $("#vlanList").css("display", "none");
                 $("#submit").css("display", "none");
                 $.ajax({
-                    url: "/html_app/vlanlist",
+                    url: "/vlanlist",
                     type: "POST",
                     cache: false,
                     data: formData,
@@ -160,7 +160,7 @@
         $('canvas').css("margin-left", "50%");
         console.log(formData.get("status"))
         $.ajax({
-            url: "/html_app/vlan_delete",
+            url: "/vlan_delete",
             type: "POST",
             cache: false,
             data: formData,

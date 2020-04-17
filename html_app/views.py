@@ -73,6 +73,23 @@ class home(View):
         return render(request, "home.html", {"test": "test"})
 
 
+class check(View):
+    def post(self, request):
+        name = str(request.POST["username"])
+        pwd = str(request.POST["passwd"])
+        if name != None and not name.__eq__(""):
+            if name == "admin" and pwd == "admin":
+                return render(request, "home.html", {"test": "test"})
+            else:
+                return HttpResponse("0")
+        else:
+            return HttpResponse('0')
+
+
+def login(request):
+    return render(request, "login.html")
+
+
 class device(View):
     def post(self,request):
         x = query_devices()
@@ -84,14 +101,6 @@ class device(View):
 
 
 class query_int_list(View):
-    # def get(self,request):
-    #     x = query_interfaces()
-    #     y = x.query_db_int()
-    #     data = {}
-    #     data['int'] = list(y)
-    #     # return HttpResponse(data)
-    #     return JsonResponse(data)
-
     def post(self,request):
         name = request.POST['name']
         x = query_interfaces(hostname=name)

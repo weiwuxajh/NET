@@ -46,7 +46,7 @@
             }
         }),
         $.ajax({
-            url: "/html_app/device",
+            url: "/device",
             type: "POST",
             cache: false,
             contentType: false,
@@ -101,7 +101,7 @@
                 $("#status").css("display", "none");
                 $("#submit").css("display", "none");
                 $.ajax({
-                    url: "/html_app/intlist",
+                    url: "/intlist",
                     type: "POST",
                     cache: false,
                     data: formData,
@@ -165,7 +165,7 @@
         $('canvas').css("margin-left", "50%");
         console.log(formData.get("status"))
         $.ajax({
-            url: "/html_app/int_status",
+            url: "/int_status",
             type: "POST",
             cache: false,
             data: formData,

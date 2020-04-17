@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>主页</title>
     {% load staticfiles %}
     {% load bootstrap4 %}
     {% bootstrap_css %}
@@ -20,61 +20,61 @@
 </head>
 <script>
     function devicelist() {
-        $("#item").attr("src", '/html_app/device_list');
+        $("#item").attr("src", '/device_list');
     }
 
     function ipConfig() {
-        $("#item").attr("src", '/html_app/configip');
+        $("#item").attr("src", '/configip');
     }
 
     function statusConfig() {
-        $("#item").attr("src", '/html_app/configstatus');
+        $("#item").attr("src", '/configstatus');
     }
 
     function addroute() {
-        $("#item").attr("src", '/html_app/creatroute');
+        $("#item").attr("src", '/creatroute');
     }
 
     function deleteroute() {
-        $("#item").attr("src", '/html_app/deleteroute');
+        $("#item").attr("src", '/deleteroute');
     }
 
     function accessConfig() {
-        $("#item").attr("src", '/html_app/access');
+        $("#item").attr("src", '/access');
     }
 
     function addvlan() {
-        $("#item").attr("src", '/html_app/creatvlan');
+        $("#item").attr("src", '/creatvlan');
     }
 
     function deletevlan() {
-        $("#item").attr("src", '/html_app/deletevlan');
+        $("#item").attr("src", '/deletevlan');
     }
 
 
     function queryRoute() {
-        $("#item").attr("src", '/html_app/route_list');
+        $("#item").attr("src", '/route_list');
     }
 
     function queryVlan() {
-        $("#item").attr("src", '/html_app/vlan_list');
+        $("#item").attr("src", '/vlan_list');
     }
 
     function queryInt() {
-        $("#item").attr("src", '/html_app/int_list');
+        $("#item").attr("src", '/int_list');
     }
 </script>
 
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="#" onclick="Logo()">Logo</a>
+    <a class="navbar-brand" href="#" onclick="Logo()">Hello</a>
 
     <!-- Links -->
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#" onclick="devicelist()">网络概览</a>
+                <a class="nav-link" href="#" onclick="devicelist()">设备列表</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -82,31 +82,31 @@
                    data-submenu>设备配置</a>
                 <div class="dropdown-menu">
                     <div class="dropdown dropright dropdown-submenu">
-                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">vlan
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">VLAN配置
                         </button>
 
                         <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" onclick="addvlan()">add</button>
-                            <button class="dropdown-item" type="button" onclick="deletevlan()">delete</button>
-                            <button class="dropdown-item" type="button" onclick="accessConfig()">access</button>
+                            <button class="dropdown-item" type="button" onclick="addvlan()">创建VLAN</button>
+                            <button class="dropdown-item" type="button" onclick="deletevlan()">删除VLAN</button>
+                            <button class="dropdown-item" type="button" onclick="accessConfig()">Access配置</button>
                         </div>
                     </div>
                     <div class="dropdown dropright dropdown-submenu">
-                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">int
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">接口配置
                         </button>
 
                         <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" onclick="ipConfig()">ip</button>
-                            <button class="dropdown-item" type="button" onclick="statusConfig()">status</button>
+                            <button class="dropdown-item" type="button" onclick="ipConfig()">接口IP</button>
+                            <button class="dropdown-item" type="button" onclick="statusConfig()">接口状态</button>
                         </div>
                     </div>
                     <div class="dropdown dropright dropdown-submenu">
-                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">route
+                        <button class="dropdown-item dropdown-toggle" type="button" data-toggle="dropdown">路由配置
                         </button>
 
                         <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" onclick="addroute()">add</button>
-                            <button class="dropdown-item" type="button" onclick="deleteroute()">delete</button>
+                            <button class="dropdown-item" type="button" onclick="addroute()">创建路由</button>
+                            <button class="dropdown-item" type="button" onclick="deleteroute()">删除路由</button>
                         </div>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
     </div>
 
 </nav>
-<iframe id="item" src="/html_app/device_list" style="width: 100%;height: 600px;" frameborder="0"></iframe>
+<iframe id="item" src="/device_list" style="width: 100%;height: 600px;" frameborder="0"></iframe>
 
 </body>
 

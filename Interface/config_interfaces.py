@@ -47,8 +47,6 @@ class config_interfaces():
         net_connect.send_config_set(config_commands)
         output = net_connect.send_command('show ip int b')
         net_connect.disconnect()
-        # i = interfaces(name=self.hostname,interface=self.port,ipadd=self.ip,status='up')
-        # i.save()
         intlist.filter(name=self.hostname).delete()
         TEMP_FILE = "templates/query_interfaces_model"
         fsm = textfsm.TextFSM(open(TEMP_FILE))

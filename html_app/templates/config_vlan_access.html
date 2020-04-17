@@ -46,7 +46,7 @@
             }
         }),
         $.ajax({
-            url: "/html_app/device",
+            url: "/device",
             type: "POST",
             cache: false,
             contentType: false,
@@ -103,7 +103,7 @@
                 $("#portList").css("display", "none");
                 $("#submit").css("display", "none");
                 $.ajax({
-                    url: "/html_app/vlanlist",
+                    url: "/vlanlist",
                     type: "POST",
                     cache: false,
                     data: formData,
@@ -123,7 +123,7 @@
                     }
                 })
                 $.ajax({
-                    url: "/html_app/intlist",
+                    url: "/intlist",
                     type: "POST",
                     cache: false,
                     data: formData,
@@ -187,7 +187,7 @@
         $("#submit").css("display", "none");
         $('canvas').css("margin-left", "50%");
         $.ajax({
-            url: "/html_app/vlan_access",
+            url: "/vlan_access",
             type: "POST",
             cache: false,
             data: formData,
@@ -221,7 +221,7 @@
             <br><br>
             <select class="form-control" id="portList"
                     style="width: 30%;display: inline;float:left;margin-left: 20px;">
-                <option value="" disabled selected>port选择（请先选择设备）</option>
+                <option value="" disabled selected>端口选择（请先选择设备）</option>
             </select>
              <br><br>
             <button type="submit" class="btn btn-secondary"

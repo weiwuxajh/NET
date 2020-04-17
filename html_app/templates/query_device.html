@@ -44,7 +44,7 @@
             }
         }),
         $.ajax({
-            url: "/html_app/device",
+            url: "/device",
             type: "POST",
             cache: false,
             contentType: false,
@@ -60,44 +60,29 @@
 
 
 
-   $("#panelT1").click(function () {
-        $("#panelB1").slideToggle("slow");
-    });
-    $("#panelT2").click(function () {
-        $("#panelB2").slideToggle("slow");
-    });
-    $("#panelT3").click(function () {
-        $("#panelB3").slideToggle("slow");
-    });
-    $("#panelT4").click(function () {
-        $("#panelB4").slideToggle("slow");
-    });
 </script>
 
-
-<br><br><br>
 <div class="accordion" id="accordionExample">
     <div class="card bg-secondary text-white">
         <div class="card-header" id="headingOne">
             <h2 class="mb-0">
-                <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseOne"
+                <button class="btn btn-secondary" type="button"
                         aria-expanded="false" aria-controls="collapseOne">
-                    device infomation
+                    设备信息
                 </button>
             </h2>
         </div>
-
-        <div id="collapseOne" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div id="collapseOne"  aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
                     <table class="table table-dark table-striped">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">hostname</th>
-                            <th scope="col">devicetype</th>
-                            <th scope="col">host</th>
-                            <th scope="col">username</th>
-                            <th scope="col">password</th>
-                            <th scope="col">secret</th>
+                            <th scope="col">设备名</th>
+                            <th scope="col">设备类型</th>
+                            <th scope="col">通信地址</th>
+                            <th scope="col">用户名</th>
+                            <th scope="col">密码</th>
+                            <th scope="col">特权密码</th>
                         </tr>
                         </thead>
                         <tbody id="device">

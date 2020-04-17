@@ -15,7 +15,6 @@ from Interface.models import devicelist
 def testdb(request):
     x = query_interfaces()
     y = x.query_int()
-    # print(y)
     list = devicelist.objects.all()
     interfaces.objects.all().delete()
     for index in range(len(y)):

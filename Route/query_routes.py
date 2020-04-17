@@ -15,10 +15,7 @@ class query_routes():
         fsm_results = []
         for index in range(len(list)):
             net_connect = ConnectHandler(device_type=list[index].devicetype,host=list[index].host,username=list[index].username,password=list[index].password)
-
-            #执行命令，返回结果为字符串，赋值给output
             output = net_connect.send_command('show ip route')
-            # print(output)
             net_connect.disconnect()
             TEMP_FILE = "./templates/query_routes_model"
             fsm = textfsm.TextFSM(open(TEMP_FILE))

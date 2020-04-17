@@ -46,7 +46,7 @@
             }
         }),
         $.ajax({
-            url: "/html_app/device",
+            url: "/device",
             type: "POST",
             cache: false,
             contentType: false,
@@ -102,7 +102,7 @@
                 $("#ipAddr").css("display", "none");
                 $("#submit").css("display", "none");
                 $.ajax({
-                    url: "/html_app/intlist",
+                    url: "/intlist",
                     type: "POST",
                     cache: false,
                     data: formData,
@@ -129,8 +129,6 @@
     function confIP() {
         var nameSelected = $("#nameList").find("option:selected").val();
         var port = $("#portList").find("option:selected").val();
-        {#var splitData = port.split("ernet");#}
-        {#var portFinal = splitData.join('');#}
         var ip = $("#ipAddr").val();
         var formData = new FormData();
         formData.append("name", nameSelected);
@@ -169,7 +167,7 @@
         $("#submit").css("display", "none");
         $('canvas').css("margin-left", "50%");
         $.ajax({
-            url: "/html_app/int_ip",
+            url: "/int_ip",
             type: "POST",
             cache: false,
             data: formData,

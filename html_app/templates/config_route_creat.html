@@ -46,7 +46,7 @@
             }
         }),
         $.ajax({
-            url: "/html_app/device",
+            url: "/device",
             type: "POST",
             cache: false,
             contentType: false,
@@ -103,7 +103,7 @@
                 $("#netmask").css("display", "none");
                 $("#submit").css("display", "none");
                 $.ajax({
-                    url: "/html_app/intlist",
+                    url: "/intlist",
                     type: "POST",
                     cache: false,
                     data: formData,
@@ -171,7 +171,7 @@
         $("#submit").css("display", "none");
         $('canvas').css("margin-left", "50%");
         $.ajax({
-            url: "/html_app/route_creat",
+            url: "/route_creat",
             type: "POST",
             cache: false,
             data: formData,
@@ -213,7 +213,7 @@
             <br><br>
             <select class="form-control" id="portList"
                     style="width: 30%;display: inline;float:left;margin-left: 20px;">
-                <option value="" disabled selected>nexthop选择</option>
+                <option value="" disabled selected>出接口选择</option>
             </select>
              <br><br>
             <button type="submit" class="btn btn-secondary"

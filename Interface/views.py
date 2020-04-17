@@ -29,13 +29,13 @@ from django.core import serializers
 #         xx = json.dumps(y)
 #         return JsonResponse(xx, safe=False)
 
-
-class route(View):
-    def get(self,request):
-        x = config_routes()
-        y = x.delete_route()
-        xx = json.dumps(y)
-        return JsonResponse(xx, safe=False)
+#
+# class route(View):
+#     def get(self,request):
+#         x = config_routes()
+#         y = x.delete_route()
+#         xx = json.dumps(y)
+#         return JsonResponse(xx, safe=False)
 
 
 # class device(View):

@@ -16,6 +16,7 @@ urlpatterns = [
     path('creatroute', views.config_route_creat.as_view()),
     path('deleteroute', views.config_route_delete.as_view()),
     path('home', views.home.as_view()),
+    path('', views.login),
     path('device', views.device.as_view()),
     path('intlist',views.query_int_list.as_view()),
     path('vlanlist', views.query_vlan_list.as_view()),
@@ -26,5 +27,6 @@ urlpatterns = [
     path('vlan_delete', views.vlan_delete.as_view()),
     path('vlan_access', views.vlan_access.as_view()),
     path('route_creat', views.route_creat.as_view()),
-    path('route_delete', views.route_delete.as_view())
+    path('route_delete', views.route_delete.as_view()),
+    path('Homepage', views.check.as_view())
 ]

@@ -46,7 +46,7 @@
             }
         }),
         $.ajax({
-            url: "/html_app/device",
+            url: "/device",
             type: "POST",
             cache: false,
             contentType: false,
@@ -101,7 +101,7 @@
         $("#submit").css("display", "none");
         $('canvas').css("margin-left", "50%");
         $.ajax({
-            url: "/html_app/vlan_creat",
+            url: "/vlan_creat",
             type: "POST",
             cache: false,
             data: formData,
